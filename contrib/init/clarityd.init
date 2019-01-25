@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  clarityd The Clarity Core server.
+#
+#
+# chkconfig: 345 80 20
+# description: clarityd
+# processname: clarityd
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/clarityd, see below
+if [ -f /etc/sysconfig/clarityd ]; then
+        . /etc/sysconfig/clarityd
+fi
+
+RETVAL=0
+
+prog=clarityd
+# you can override the lockfile via CLARITYD_LOCKFILE in /etc/sysconfig/clarityd
+lockfile=${CLARITYD_LOCKFILE-/var/lock/subsys/clarityd}
+
+# clarityd defaults to /usr/bin/clarityd, override with CLARITYD_BIN
+clarityd=${CLARITYD_BIN-/usr/bin/clarityd}
+
+# clarityd opts default to -disablewallet, override with CLARITYD_OPTS
+clarityd_opts=${CLARITYD_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $clarityd $clarityd_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

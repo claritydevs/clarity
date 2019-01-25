@@ -1,0 +1,92 @@
+#!/sbin/runscript
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/claritycore/.claritycore" ]; then
+	CLARITYD_DEFAULT_DATADIR="/var/lib/claritycore/.claritycore"
+else
+	CLARITYD_DEFAULT_DATADIR="/var/lib/clarityd"
+fi
+
+CLARITYD_CONFIGFILE=${CLARITYD_CONFIGFILE:-/etc/claritycore/clarity.conf}
+CLARITYD_PIDDIR=${CLARITYD_PIDDIR:-/var/run/clarityd}
+CLARITYD_PIDFILE=${CLARITYD_PIDFILE:-${CLARITYD_PIDDIR}/clarityd.pid}
+CLARITYD_DATADIR=${CLARITYD_DATADIR:-${CLARITYD_DEFAULT_DATADIR}}
+CLARITYD_USER=${CLARITYD_USER:-${CLARITY_USER:-claritycore}}
+CLARITYD_GROUP=${CLARITYD_GROUP:-claritycore}
+CLARITYD_BIN=${CLARITYD_BIN:-/usr/bin/clarityd}
+CLARITYD_NICE=${CLARITYD_NICE:-${NICELEVEL:-0}}
+CLARITYD_OPTS="${CLARITYD_OPTS:-${CLARITY_OPTS}}"
+
+name="Clarity Core Daemon"
+description="Clarity cryptocurrency P2P network daemon"
+
+command="/usr/bin/clarityd"
+command_args="-pid=\"${CLARITYD_PIDFILE}\" \
+		-conf=\"${CLARITYD_CONFIGFILE}\" \
+		-datadir=\"${CLARITYD_DATADIR}\" \
+		-daemon \
+		${CLARITYD_OPTS}"
+
+required_files="${CLARITYD_CONFIGFILE}"
+start_stop_daemon_args="-u ${CLARITYD_USER} \
+			-N ${CLARITYD_NICE} -w 2000"
+pidfile="${CLARITYD_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${CLARITYD_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${CLARITYD_USER}:${CLARITYD_GROUP}" \
+	"${CLARITYD_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${CLARITYD_USER}:${CLARITYD_GROUP}" \
+	"${CLARITYD_PIDDIR}"
+
+	checkpath -f \
+	-o ${CLARITYD_USER}:${CLARITYD_GROUP} \
+	-m 0660 \
+	${CLARITYD_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${CLARITYD_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run clarityd."
+		eerror "The setting must appear in ${CLARITYD_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following"
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is also recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"Clarity Core Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

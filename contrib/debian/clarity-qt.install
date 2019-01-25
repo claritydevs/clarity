@@ -1,0 +1,6 @@
+usr/local/bin/clarity-qt usr/bin
+share/pixmaps/clarity32.xpm usr/share/pixmaps
+share/pixmaps/clarity16.xpm usr/share/pixmaps
+share/pixmaps/clarity128.png usr/share/pixmaps
+debian/clarity-qt.desktop usr/share/applications
+debian/clarity-qt.protocol usr/share/kde4/services/

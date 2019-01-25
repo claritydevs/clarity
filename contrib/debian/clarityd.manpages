@@ -1,0 +1,3 @@
+debian/manpages/clarityd.1
+debian/manpages/clarity.conf.5
+debian/manpages/clarity-cli.1

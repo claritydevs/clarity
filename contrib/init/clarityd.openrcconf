@@ -1,0 +1,33 @@
+# /etc/conf.d/clarityd: config file for /etc/init.d/clarityd
+
+# Config file location
+#CLARITYD_CONFIGFILE="/etc/claritycore/clarity.conf"
+
+# What directory to write pidfile to?  (created and owned by $CLARITYD_USER)
+#CLARITYD_PIDDIR="/var/run/clarityd"
+
+# What filename to give the pidfile
+#CLARITYD_PIDFILE="${CLARITYD_PIDDIR}/clarityd.pid"
+
+# Where to write clarityd data (be mindful that the blockchain is large)
+#CLARITYD_DATADIR="/var/lib/clarityd"
+
+# User and group to own clarityd process
+#CLARITYD_USER="claritycore"
+#CLARITYD_GROUP="claritycore"
+
+# Path to clarityd executable
+#CLARITYD_BIN="/usr/bin/clarityd"
+
+# Nice value to run clarityd under
+#CLARITYD_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+CLARITYD_OPTS="-disablewallet"
+
+# The timeout in seconds OpenRC will wait for clarityd to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+CLARITYD_SIGTERM_TIMEOUT=60

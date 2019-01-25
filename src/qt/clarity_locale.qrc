@@ -1,0 +1,20 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/clarity_bg.qm</file>
+        <file alias="de">locale/clarity_de.qm</file>
+        <file alias="en">locale/clarity_en.qm</file>
+        <file alias="es">locale/clarity_es.qm</file>
+        <file alias="fi">locale/clarity_fi.qm</file>
+        <file alias="fr">locale/clarity_fr.qm</file>
+        <file alias="it">locale/clarity_it.qm</file>
+        <file alias="ja">locale/clarity_ja.qm</file>
+        <file alias="pl">locale/clarity_pl.qm</file>
+        <file alias="pt">locale/clarity_pt.qm</file>
+        <file alias="ru">locale/clarity_ru.qm</file>
+        <file alias="sk">locale/clarity_sk.qm</file>
+        <file alias="sv">locale/clarity_sv.qm</file>
+        <file alias="vi">locale/clarity_vi.qm</file>
+        <file alias="zh_CN">locale/clarity_zh_CN.qm</file>
+        <file alias="zh_TW">locale/clarity_zh_TW.qm</file>
+    </qresource>
+</RCC>
