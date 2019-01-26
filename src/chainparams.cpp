@@ -142,19 +142,19 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xad;
-        pchMessageStart[1] = 0x7d;
-        pchMessageStart[2] = 0x5e;
-        pchMessageStart[3] = 0x75;
+        pchMessageStart[0] = 0xba;
+        pchMessageStart[1] = 0x4a;
+        pchMessageStart[2] = 0x3a;
+        pchMessageStart[3] = 0x1a;
         vAlertPubKey = ParseHex("048c4ef0c2c635687f6077a742be01a05748370a24a6d5209283d727e7825bf5b259256169f638e7f845c923abe6f3b3f64177f8dd354c447fbe2ad933f457febe");
         nDefaultPort = 6969;
         nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in clarity
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1548396081, 1349088, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1548502079, 131806, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000f0de8c91479ea451f74603f1a9ad11a2adf2a9a9a082a9a76dc93699c66"));
+        assert(consensus.hashGenesisBlock == uint256S("0x0000024a80dd14aaefa20c924c892ec6dc840831f4fc9391cb58a9b6b639c69b"));
         assert(genesis.hashMerkleRoot == uint256S("0xca3ea84ad803ad2f633836c05c3fa0ffa691301839da809dd4ef0c0c45f8b701"));
 
         vSeeds.push_back(CDNSSeedData("clarityproject.org", "seed.clarityproject.org"));
