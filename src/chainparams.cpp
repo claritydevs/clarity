@@ -152,9 +152,9 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1548325131, 2271243, 504365040, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1548602121, 950366, 504365040, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000002775e154ac783967b14fbcc3f7560c5d3a9b1b98385753e6a3b509beecb"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000bfb965a0f301a83166eeded7f5ac92fc09b49eeff6597185b384db5d07e"));
         assert(genesis.hashMerkleRoot == uint256S("0xca3ea84ad803ad2f633836c05c3fa0ffa691301839da809dd4ef0c0c45f8b701"));
 
         vSeeds.push_back(CDNSSeedData("clarityproject.org", "seed.clarityproject.org"));
@@ -192,8 +192,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x000002775e154ac783967b14fbcc3f7560c5d3a9b1b98385753e6a3b509beecb")),
-            1548325131, // * UNIX timestamp of last checkpoint block
+            (  0, uint256S("0x00000bfb965a0f301a83166eeded7f5ac92fc09b49eeff6597185b384db5d07e")),
+            1548602121, // * UNIX timestamp of last checkpoint block
             0,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             1        // * estimated number of transactions per day after checkpoint
