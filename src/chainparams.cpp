@@ -142,19 +142,19 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xba;
-        pchMessageStart[1] = 0x4a;
-        pchMessageStart[2] = 0x3a;
-        pchMessageStart[3] = 0x1a;
+        pchMessageStart[0] = 0xa2;
+        pchMessageStart[1] = 0xbc;
+        pchMessageStart[2] = 0xcb;
+        pchMessageStart[3] = 0x46;
         vAlertPubKey = ParseHex("048c4ef0c2c635687f6077a742be01a05748370a24a6d5209283d727e7825bf5b259256169f638e7f845c923abe6f3b3f64177f8dd354c447fbe2ad933f457febe");
         nDefaultPort = 6969;
         nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in clarity
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1548502079, 131806, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1548325131, 2271243, 504365040, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0000024a80dd14aaefa20c924c892ec6dc840831f4fc9391cb58a9b6b639c69b"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000002775e154ac783967b14fbcc3f7560c5d3a9b1b98385753e6a3b509beecb"));
         assert(genesis.hashMerkleRoot == uint256S("0xca3ea84ad803ad2f633836c05c3fa0ffa691301839da809dd4ef0c0c45f8b701"));
 
         vSeeds.push_back(CDNSSeedData("clarityproject.org", "seed.clarityproject.org"));
@@ -192,8 +192,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x0000024a80dd14aaefa20c924c892ec6dc840831f4fc9391cb58a9b6b639c69b")),
-            1548502079, // * UNIX timestamp of last checkpoint block
+            (  0, uint256S("0x000002775e154ac783967b14fbcc3f7560c5d3a9b1b98385753e6a3b509beecb")),
+            1548325131, // * UNIX timestamp of last checkpoint block
             0,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             1        // * estimated number of transactions per day after checkpoint
